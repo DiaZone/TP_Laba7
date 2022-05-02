@@ -1,3 +1,0 @@
-Ермолов 0 D:\Users\DiaZo\Desktop\1.jpg 
-Иванов 254 D:\Users\DiaZo\Desktop\A-mYYNTDrjA.jpg D:\Users\DiaZo\Desktop\2.jpg 
-Собака 90 D:\Users\DiaZo\Desktop\1.jpg
