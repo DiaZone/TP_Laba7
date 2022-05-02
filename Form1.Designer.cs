@@ -43,6 +43,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.ClearButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PhotoPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -107,6 +109,7 @@
             // 
             // SafeToFileButton
             // 
+            this.SafeToFileButton.Enabled = false;
             this.SafeToFileButton.Location = new System.Drawing.Point(373, 66);
             this.SafeToFileButton.Name = "SafeToFileButton";
             this.SafeToFileButton.Size = new System.Drawing.Size(140, 23);
@@ -117,7 +120,7 @@
             // 
             // ReadFromFileButton
             // 
-            this.ReadFromFileButton.Location = new System.Drawing.Point(373, 105);
+            this.ReadFromFileButton.Location = new System.Drawing.Point(373, 132);
             this.ReadFromFileButton.Name = "ReadFromFileButton";
             this.ReadFromFileButton.Size = new System.Drawing.Size(140, 23);
             this.ReadFromFileButton.TabIndex = 7;
@@ -183,12 +186,34 @@
             this.label5.TabIndex = 13;
             this.label5.Text = "*примечание - ФИО необходимо вводить полностью через пробел";
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(373, 95);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(134, 19);
+            this.checkBox1.TabIndex = 14;
+            this.checkBox1.Text = "Перезаписать файл";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // ClearButton
+            // 
+            this.ClearButton.Location = new System.Drawing.Point(404, 176);
+            this.ClearButton.Name = "ClearButton";
+            this.ClearButton.Size = new System.Drawing.Size(75, 23);
+            this.ClearButton.TabIndex = 15;
+            this.ClearButton.Text = "Очистить";
+            this.ClearButton.UseVisualStyleBackColor = true;
+            this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(530, 278);
+            this.Controls.Add(this.ClearButton);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -228,5 +253,7 @@
         private Label label3;
         private Label label4;
         private Label label5;
+        private CheckBox checkBox1;
+        private Button ClearButton;
     }
 }

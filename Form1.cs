@@ -31,7 +31,14 @@ namespace TP_Laba7
 
         private void PhotoListBox_Click(object sender, EventArgs e)
         {
-            PhotoPictureBox.Load(PhotoListBox.SelectedItem.ToString());
+            try
+            {
+                PhotoPictureBox.Load(PhotoListBox.SelectedItem.ToString());
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Необходимо выбрать фотографию");
+            }
         }
 
         private void AcceptButton_Click(object sender, EventArgs e)
@@ -47,6 +54,7 @@ namespace TP_Laba7
             NameComboBox.Text = "";
             SumTextBox.Text = "";
             PhotoListBox.Items.Clear();
+            SafeToFileButton.Enabled = true;
         }
 
         private void NameComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -72,11 +80,38 @@ namespace TP_Laba7
             {
                 ResultString += S + " ";
             }
-            string source = NameComboBox.Text + " " + SumTextBox.Text + " " + ResultString;
-            using (StreamWriter writer = new StreamWriter(fileDATA, true))
+            if (NameComboBox.Text != "")
             {
-                writer.WriteLine(source);
+
+                string source = NameComboBox.Text + " " + SumTextBox.Text + " " + ResultString;
+                //foreach (var key in Summ.Keys)
+                //{
+                /*string source = key.ToString() + " " + Summ[key];
+                foreach (string z in Photos[key])
+                {
+                    source += " " + z;
+                }*/
+                if (!checkBox1.Checked)
+                {
+                    using (StreamWriter writer = new StreamWriter(fileDATA, true))
+                    {
+                        writer.WriteLine(source);
+                    }
+                }
+                else
+                {
+                    using (StreamWriter writer = new StreamWriter(fileDATA))
+                    {
+                        writer.WriteLine(source);
+                    }
+                }
             }
+            else
+            {
+                MessageBox.Show("Необходимо выбрать ФИО");
+            }
+                //source = String.Empty;
+            //}
             NameComboBox.Text = "";
             SumTextBox.Text = "";
             PhotoListBox.Items.Clear();
@@ -93,27 +128,46 @@ namespace TP_Laba7
             int count = 0;
             using (StreamReader reader = new StreamReader(fileDATA))
             {
-                while (!reader.EndOfStream)
+                try
                 {
-                    List<string> result = new List<string>();
-                    string source = reader.ReadLine();
-                    string[] temp = source.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                    string FIO = "";
-                    for (int i = 0; i <= 2; i++)
+                    while (!reader.EndOfStream)
                     {
-                        FIO += temp[i] + " ";
+                        List<string> result = new List<string>();
+                        string source = reader.ReadLine();
+                        string[] temp = source.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        string FIO = "";
+                        for (int i = 0; i <= 2; i++)
+                        {
+                            FIO += temp[i] + " ";
+                        }
+                        NameComboBox.Items.Add(FIO);
+                        Summ.Add(FIO, temp[3]);
+                        for (int i = 4; i < temp.Length; i++)
+                        {
+                            result.Add(temp[i]);
+                        }
+                        Photos.Add(FIO, result);
+                        count++;
                     }
-                    NameComboBox.Items.Add(FIO);
-                    Summ.Add(FIO, temp[3]);
-                    for (int i = 4; i < temp.Length; i++)
-                    {
-                        result.Add(temp[i]);
-                    }
-                    Photos.Add(FIO, result);
-                    count++;
+                }
+                catch (ArgumentException)
+                {
+                    MessageBox.Show("Ошибка в файле. Проверьте на дубликат или перезапишите файл с нуля.", "Ошибка");
                 }
             }
             CountLabel.Text = count.ToString();
+        }
+
+        private void ClearButton_Click(object sender, EventArgs e)
+        {
+            NameComboBox.Items.Clear();
+            Summ.Clear();
+            Photos.Clear();
+            NameComboBox.Text = String.Empty;
+            SumTextBox.Text = String.Empty;
+            PhotoListBox.Items.Clear();
+            PhotoPictureBox.Image = null;
+            CountLabel.Text = 0.ToString();
         }
 
         private void SumTextBox_TextChanged(object sender, EventArgs e)
